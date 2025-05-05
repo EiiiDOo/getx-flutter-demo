@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/utils.dart';
@@ -15,7 +16,7 @@ class MyHomePage extends StatelessWidget {
 
         title: Text('Home'),
       ),
-      body: GetBuilder<HomeController>(
+      body: GetX<HomeController>(
         init: HomeController(),
         builder: (controller) {
           print(
@@ -31,15 +32,15 @@ class MyHomePage extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () => controller.increment(),
-                      icon: Icon(Icons.plus_one),
+                      icon: Icon(Icons.add),
                     ),
                     Text(
-                      '${controller.count}',
+                      '${controller.count.value}',
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     IconButton(
                       onPressed: () => controller.decrement(),
-                      icon: Icon(Icons.exposure_minus_1),
+                      icon: Icon(Icons.remove),
                     ),
                   ],
                 ),
