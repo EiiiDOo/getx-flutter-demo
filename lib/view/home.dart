@@ -1,52 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_flutter_demo/controller/home_controller.dart';
+import 'package:getx_flutter_demo/controller/auth_controller.dart';
+import 'package:getx_flutter_demo/locale/locale_controller.dart';
+import 'package:getx_flutter_demo/services/settings_services.dart';
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
-  //HomeController controller = Get.put(HomeController());
-  final HomeController controller =
-      Get.find<HomeController>(); // Use Get.find()
+class HomeScreen extends GetView<SettingsService> {
+  HomeScreen({super.key});
+  final MyLocaleController myLocaleController = Get.find();
   @override
   Widget build(BuildContext context) {
-    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<< Build >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
-        title: Text('Home'),
+      appBar: AppBar(title: Text('title'.tr)),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 30,
+          children: [
+            MaterialButton(
+              onPressed:
+                  () =>
+                      Get.toNamed('/screen-one', arguments: {'name': 'BAWLOW'}),
+              color: Colors.amber,
+              child: Text("Screen One"),
+            ),
+            MaterialButton(
+              onPressed: () => Get.toNamed('/screen-two'),
+              color: Colors.amber,
+              child: Text("Screen Two"),
+            ),
+            MaterialButton(
+              onPressed: () {
+                AuthController authController = Get.find();
+                authController.logIn('1');
+                Get.toNamed('/screen-one');
+              },
+              color: Colors.amber,
+              child: Text("sign in"),
+            ),
+            GetX<SettingsService>(
+              builder:
+                  (controller) => MaterialButton(
+                    onPressed: () {
+                      controller.increase();
+                    },
+                    color: Colors.amber,
+                    child: Text("${controller.counter}"),
+                  ),
+            ),
+            MaterialButton(
+              onPressed: () {
+                Get.isDarkMode
+                    ? Get.changeTheme(ThemeData.light())
+                    : Get.changeTheme(ThemeData.dark());
+              },
+              color: Colors.amber,
+              child: Text("sign in"),
+            ),
+            MaterialButton(
+              onPressed: () {
+                myLocaleController.changeLang('ar');
+              },
+              color: Colors.amber,
+              child: Text("change ar "),
+            ),
+            MaterialButton(
+              onPressed: () {
+                myLocaleController.changeLang('en');
+              },
+              color: Colors.amber,
+              child: Text("change en "),
+            ),
+          ],
+        ),
       ),
-      body: Obx(() {
-        print(
-          "<<<<<<<<<<<<<<<<<<<<<<<<<<<< Builder one >>>>>>>>>>>>>>>>>>>>>>>>>>>>",
-        );
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('You have pushed the button this many times:'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: () => controller.increment(),
-                    icon: Icon(Icons.add),
-                  ),
-                  Text(
-                    '${controller.count.value}',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  IconButton(
-                    onPressed: () => controller.decrement(),
-                    icon: Icon(Icons.remove),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }),
     );
   }
 }
