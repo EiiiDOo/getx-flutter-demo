@@ -10,7 +10,7 @@ class HomeScreen extends GetView<SettingsService> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('title'.tr)),
+      appBar: AppBar(title: Text('title'.trParams({'name': 'ahmed'}))),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

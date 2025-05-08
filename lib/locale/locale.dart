@@ -4,6 +4,6 @@ class MyLocale implements Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'ar': {'title': 'الصفحة الرئيسية'},
-    'en': {'title': 'Home Page'},
+    'en': {'title': 'Home Page, Hi @name'},
   };
 }
